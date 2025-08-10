@@ -5,7 +5,7 @@ const { startLightningListener } = require("./src/listeners/lightningL");
 const main = async () => {
   const abortController = createExitAwareAbortController();
   startLightningListener();
-  // startMachineChecker();
+//  startMachineChecker();
 };
 
 main();

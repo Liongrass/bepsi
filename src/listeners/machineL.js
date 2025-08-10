@@ -2,7 +2,6 @@
 
 const { Gpio } = require("onoff");
 const axios = require("axios");
-const { updateInventoryMessage } = require("./discordL.js");
 const { sleep } = require("../common.js");
 
 // GPIO 8 is wonky atm
@@ -37,7 +36,6 @@ const listenToGpio = (pinNo) => {
         if (value !== prevValue) {
           // New value, send to the database
           prevValue = value;
-          updateInventoryMessage(pinToHopper[pin], value === 0);
         }
       }),
     1000, // Every second
