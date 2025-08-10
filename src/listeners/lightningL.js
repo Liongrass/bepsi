@@ -1,5 +1,4 @@
 const WebSocket = require("ws");
-const { dispenseFromPayments } = require("../machine");
 const { LIGHTNING_LNBITS_URL } = require("../env");
 
 // WebSocket URL
@@ -21,7 +20,6 @@ const startLightningListener = async () => {
     console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
     pinNo = messageStr.split("-")[0];
-    dispenseFromPayments(pinNo, "sats");
   });
 
   // Event listener for handling errors
