@@ -2,7 +2,9 @@ const WebSocket = require("ws");
 const { dispenseFromPayments } = require("../machine");
 const { LIGHTNING_LNBITS_URL } = require("../env");
 
-// WebSocket URL
+// This file connects to an LNbits server over a websocket and listens to incoming messages in the format "pin-ms", e.g. "21-1000". It then triggers the dispenseFromPayments() function in machine.js to dispense the can at the defined pin.
+
+// The WebSocket URL is obtained from LNBits using the Bitcoin Switch extension and defined in the .env file.
 const wsUrl = LIGHTNING_LNBITS_URL;
 
 const startLightningListener = async () => {
@@ -11,7 +13,7 @@ const startLightningListener = async () => {
 
   // Event listener for when the connection is open
   await ws.on("open", function open() {
-    console.log("Connected to LNbits");
+    console.log("Connected to LNbits " + wsUrl);
   });
 
   // Event listener for when a message is received from the server
@@ -26,10 +28,9 @@ const startLightningListener = async () => {
   });
 
   // Event listener for handling errors
-  await ws.on("error", function error(err) {
-    console.error("WebSocket error:", err);
-    throw "LNBits Websocket failed to connect";
-  });
+  ws.on("error", function error(err) {
+    console.error("WebSocket error:", err.message);
+});
 };
 
 module.exports = {
