@@ -35,6 +35,7 @@ yarn
 Copy the example environment and fill out the parameters:
 ```bash
 cp .env.example .env
+nano .env
 ```
 
 To run:
