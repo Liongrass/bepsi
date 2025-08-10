@@ -11,12 +11,7 @@ console.log = (...args) => {
 
 // Sanity check
 const ENV_VARS = [
-  "DISCORD_TOKEN",
-  "DISCORD_CHANNEL_ID",
-  "NOCODB_API_TOKEN",
-  "PAYMENT_ADDRESS",
-  "LIGHTNING_LNBIT_URL",
-  "SOLANA_TREASURY_ADDRESS",
+  "LIGHTNING_LNBITS_URL",
 ];
 let hasAllEnvVars = true;
 for (let i = 0; i < ENV_VARS.length; i++) {
@@ -31,21 +26,9 @@ if (!hasAllEnvVars) {
 }
 
 const {
-  DISCORD_TOKEN,
-  DISCORD_CHANNEL_ID,
-  NOCODB_API_TOKEN,
-  PAYMENT_ADDRESS,
-  LIGHTNING_LNBIT_URL,
-  SOLANA_TREASURY_ADDRESS,
+  LIGHTNING_LNBITS_URL,
 } = process.env;
 
-console.log(`Listening to payments at address ${PAYMENT_ADDRESS}`);
-
 module.exports = {
-  DISCORD_TOKEN,
-  DISCORD_CHANNEL_ID,
-  NOCODB_API_TOKEN,
-  PAYMENT_ADDRESS,
-  LIGHTNING_LNBIT_URL,
-  SOLANA_TREASURY_ADDRESS
+  LIGHTNING_LNBITS_URL
 };

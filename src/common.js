@@ -1,13 +1,3 @@
-const { ethers } = require("ethers");
-const {
-  DAI_ADDRESS,
-  USDC_ADDRESS,
-  USDT_ADDRESS,
-  MIN_USD_PAYMENT,
-  VENDOR_SELECTION_TO_PIN_MAPPING,
-} = require("./constants");
-const { PAYMENT_ADDRESS } = require("./env");
-
 // eslint-disable-next-line
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
