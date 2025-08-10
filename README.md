@@ -6,9 +6,9 @@ Code that lives in the bepsi vending machine that does one thing:
 
 - Accept sats, dispense cans
 
-This guide was written for Debian 11.
+This guide was written for Debian 12.
 
-Prerequisites:
+## Prerequisites:
 
 `sudo apt install git make build-essential`
 
@@ -26,25 +26,38 @@ Requires [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable)
 npm install --global yarn
 ```
 
-To install:
+## Install:
 
 ```bash
+git clone https://github.com/Liongrass/bepsi-pi.git
+cd bepsi-pi
 yarn
 ```
 
 Copy the example environment and fill out the parameters:
+
 ```bash
 cp .env.example .env
 nano .env
 ```
 
-To run:
+To test run:
 
 ```bash
 yarn start
 ```
 
-# Start
+## Run
+
+To persist bepsi-pi and make it run on startup:
+
+```bash
 npm install -g pm2
 pm2 start index.js --name bepsi-pi --exp-backoff-restart-delay=100
+```
+
+To see logs:
+
+```bash
+pm2 logs bepsi-pi
 ```
