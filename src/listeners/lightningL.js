@@ -21,7 +21,8 @@ const startLightningListener = async () => {
     console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
     pinNo = messageStr.split("-")[0];
-    dispenseFromPayments(pinNo, "sats");
+    duration = messageStr.split("-")[1];
+    dispenseFromPayments(pinNo, duration);
   });
 
   // Event listener for handling errors

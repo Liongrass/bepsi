@@ -4,17 +4,11 @@ const { sleep, nowTimestamp } = require("./common");
 
 let isDispensing = false;
 
-const pinToItem = {
-  4: "lime",
-  5: "strawberry",
-  6: "grapefruit",
-  12: "cherry",
-  13: "purple",
-  16: "orange",
+const dispenseFromPayments = async (pinNo, duration) => {
+  await axios
+  console.log("dispensing pin " + pinNo + " for " + duration + " ms");
+  dispense(pinNo);
 };
-
-const getDispenseItemGivenPin = (pinNo) =>
-  pinToItem[pinNo] || `unmarked-${pinNo}`;
 
 const dispense = async (pinNo) => {
   // Can only dispense one at a time to avoid overloading
@@ -26,22 +20,13 @@ const dispense = async (pinNo) => {
     pin.writeSync(0);
     await sleep(500);
     pin.writeSync(1);
-    console.log(`dispense ${pinNo} successful`);
+    console.log(`dispensed pin ${pinNo} successful`);
   } catch (e) {
-    console.log("Unable to find GPIO pins, running in simulation..");
-  }
+    console.log(e);
+   }
 
   isDispensing = false;
 };
-
-const dispenseFromPayments = async (pinNo, currency) => {
-  await axios
-  console.log("dispensing " + pinNo);
-  dispense(pinNo);
-};
-
-// Right to left, pins
-// [4, 5, 6, 12, 13, 16, 9]
 
 module.exports = {
   dispense,
