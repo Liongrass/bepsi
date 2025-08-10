@@ -1,3 +1,5 @@
+// The Machine Checker is currently not used
+
 const { Gpio } = require("onoff");
 const axios = require("axios");
 const { updateInventoryMessage } = require("./discordL.js");

@@ -1,9 +1,9 @@
 const WebSocket = require("ws");
 const { dispenseFromPayments } = require("../machine");
-const { LIGHTNING_LNBIT_URL } = require("../env");
+const { LIGHTNING_LNBITS_URL } = require("../env");
 
 // WebSocket URL
-const wsUrl = LIGHTNING_LNBIT_URL;
+const wsUrl = LIGHTNING_LNBITS_URL;
 
 const startLightningListener = async () => {
   // Create a new WebSocket connection
@@ -11,14 +11,14 @@ const startLightningListener = async () => {
 
   // Event listener for when the connection is open
   await ws.on("open", function open() {
-    console.log("Connected to the lightning lnbit.");
+    console.log("Connected to LNbits");
   });
 
   // Event listener for when a message is received from the server
   await ws.on("message", function message(data) {
     //console.log('Received message from server:', data);
     const messageStr = data.toString("utf-8"); // Convert buffer to string
-    console.log("Received message from lightning lnbit server:", messageStr);
+    console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
     pinNo = messageStr.split("-")[0];
     dispenseFromPayments(pinNo, "sats");
@@ -27,7 +27,7 @@ const startLightningListener = async () => {
   // Event listener for handling errors
   await ws.on("error", function error(err) {
     console.error("WebSocket error:", err);
-    throw "lightning Websocket failed to connect";
+    throw "LNBits Websocket failed to connect";
   });
 };
 
