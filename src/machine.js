@@ -6,7 +6,7 @@ let isDispensing = false;
 
 const dispenseFromPayments = async (pinNo, duration) => {
   await axios
-  console.log("dispensing pin " + pinNo + " for " + duration + " ms");
+  console.log("Dispensing pin " + pinNo + " for " + duration + " ms");
   dispense(pinNo);
 };
 
@@ -20,7 +20,7 @@ const dispense = async (pinNo) => {
     pin.writeSync(0);
     await sleep(500);
     pin.writeSync(1);
-    console.log(`dispensed pin ${pinNo} successful`);
+    console.log(`Dispensed pin ${pinNo} successful`);
   } catch (e) {
     console.log(e);
    }
