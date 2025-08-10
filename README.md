@@ -1,6 +1,6 @@
 # Bepsi-pi
 
-Fork of DCTRL's [bepsi](https://github.com/GitYVR/bepsi-pi)
+Bitcoin-only fork of DCTRL's infamous [Bepsi Machine](https://github.com/GitYVR/bepsi-pi)
 
 Code that lives in the bepsi vending machine that does one thing:
 
@@ -52,8 +52,19 @@ yarn start
 To persist bepsi-pi and make it run on startup:
 
 ```bash
+cd ~/bepsi-pi
 npm install -g pm2
 pm2 start index.js --name bepsi-pi --exp-backoff-restart-delay=100
+pm2 startup
+```
+
+pm2 will then issue you a command that will generate and install a systemd file for your system. Run this command and restart your machine to test this.
+
+Useful commands:
+
+```bash
+pm2 list
+pm2 monit
 ```
 
 To see logs:
