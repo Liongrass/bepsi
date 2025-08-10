@@ -34,6 +34,12 @@ const dispense = async (pinNo) => {
   isDispensing = false;
 };
 
+const dispenseFromPayments = async (pinNo, currency) => {
+  await axios
+  console.log("dispensing " + pinNo);
+  dispense(pinNo);
+};
+
 // Right to left, pins
 // [4, 5, 6, 12, 13, 16, 9]
 

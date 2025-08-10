@@ -36,7 +36,8 @@ const listenToGpio = (pinNo) => {
         if (value !== prevValue) {
           // New value, send to the database
           prevValue = value;
-        }
+          updateInventoryMessage(pinToHopper[pin], value === 0);
+}
       }),
     1000, // Every second
   );
