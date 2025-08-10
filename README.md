@@ -26,10 +26,20 @@ Requires [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable)
 npm install --global yarn
 ```
 
-To run:
+To install:
 
 ```bash
 yarn
+```
+
+Copy the example environment and fill out the parameters:
+```bash
+cp .env.example .env
+```
+
+To run:
+
+```bash
 yarn start
 ```
 
