@@ -16,11 +16,11 @@ const dispense = async (pinNo, duration) => {
   isDispensing = true;
 
   try {
-    const pin = new Gpio(pinNo, duration, "out");
-    pin.writeSync(0);
-    await sleep(duration);
+    const pin = new Gpio(pinNo, "out");
     pin.writeSync(1);
-    console.log(`Dispensed pin ${pinNo} successful`);
+    await sleep(duration);
+    pin.writeSync(0);
+    console.log(`Dispensed pin ${pinNo} for ${duration}ms successfully`);
   } catch (error) {
     console.log(error);
    }
