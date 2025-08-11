@@ -12,13 +12,12 @@ const startLightningListener = async () => {
   const ws = new WebSocket(wsUrl);
 
   // Event listener for when the connection is open
-  await ws.on("open", function open() {
+  ws.on("open", function open() {
     console.log("Connected to LNbits " + wsUrl);
   });
-
+  
   // Event listener for when a message is received from the server
-  await ws.on("message", function message(data) {
-    //console.log('Received message from server:', data);
+  ws.on("message", function message(data) {
     const messageStr = data.toString("utf-8"); // Convert buffer to string
     console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
@@ -26,11 +25,17 @@ const startLightningListener = async () => {
     duration = messageStr.split("-")[1];
     dispenseFromPayments(pinNo, duration);
   });
+  
+ ws.onclose = (event) => {
+    const reconnectInterval = 60000; // 60000 milliseconds = 1 minute
+    console.log("Connection cannot be established. Reconnecting in 1 minute");
+    setTimeout(startLightningListener, reconnectInterval);
+};
 
-  // Event listener for handling errors
-  ws.on("error", function error(err) {
-    console.error("WebSocket error:", err.message);
-});
+  ws.onerror = (error) => {
+  console.error("WebSocket error:", error.message);
+};
+  
 };
 
 module.exports = {

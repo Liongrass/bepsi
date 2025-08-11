@@ -21,8 +21,8 @@ const dispense = async (pinNo) => {
     await sleep(500);
     pin.writeSync(1);
     console.log(`Dispensed pin ${pinNo} successful`);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    console.log(error.message);
    }
 
   isDispensing = false;
