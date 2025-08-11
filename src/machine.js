@@ -7,22 +7,22 @@ let isDispensing = false;
 const dispenseFromPayments = async (pinNo, duration) => {
   await axios
   console.log("Dispensing pin " + pinNo + " for " + duration + " ms");
-  dispense(pinNo);
+  dispense(pinNo, duration);
 };
 
-const dispense = async (pinNo) => {
+const dispense = async (pinNo, duration) => {
   // Can only dispense one at a time to avoid overloading
   if (isDispensing) return;
   isDispensing = true;
 
   try {
-    const pin = new Gpio(pinNo, "out");
+    const pin = new Gpio(pinNo, duration, "out");
     pin.writeSync(0);
-    await sleep(500);
+    await sleep(duration);
     pin.writeSync(1);
     console.log(`Dispensed pin ${pinNo} successful`);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
    }
 
   isDispensing = false;
