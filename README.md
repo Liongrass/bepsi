@@ -6,9 +6,9 @@ This code lives in the 21UP vending machine and does one thing:
 
 - Accept sats, dispense cans
 
-This guide was written for Debian 12.
-
 ![The 21UP vending machine](21UP.jpeg)
+
+This guide was written for Debian 12.
 
 ## Prerequisites:
 
