@@ -8,7 +8,7 @@ This code lives in the 21UP vending machine and does one thing:
 
 This guide was written for Debian 12.
 
-![The 21UP vending machine][21UP.jpeg "21UP"]
+![The 21UP vending machine][21UP.jpeg]
 
 ## Prerequisites:
 
