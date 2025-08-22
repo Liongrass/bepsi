@@ -4,10 +4,9 @@ const { sleep, nowTimestamp } = require("./common");
 
 let isDispensing = false;
 
-const dispenseFromPayments = async (pinNo) => {
+const dispenseFromPayments = async (pinNo, duration) => {
   await axios
-  console.log("Waiting for button to be pressed. Pin " + pinNo );
-  dispense(pinNo);
+  dispense(pinNo, duration);
 };
 
 const dispense = async (pinNo, duration) => {
@@ -17,11 +16,12 @@ const dispense = async (pinNo, duration) => {
 
   try {
     const pin = new Gpio(pinNo, "out");
+    const button = new Gpio(535, "in", "rising", {debounceTimeout: 10});
+    // Makes the machine hot, ready to dispense
+    pin.writeSync(0);
+    console.log("Waiting for button to be pressed. Pin " + pinNo );
     // Listens for a signal on button, wired to pin 535 (GPIO23)
-    const button = new Gpio(535, "in");
-    pin.writeSync(1);
-    button.watch(value);
-    button.writeSync(value);
+    button.watch((error, value) => pin.writeSync(1));
     console.log(`Dispensed pin ${pinNo} for ${duration}ms successfully`);
   } catch (error) {
     console.log(error);
