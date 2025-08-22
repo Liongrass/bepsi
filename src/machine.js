@@ -20,7 +20,7 @@ const dispense = async (pinNo, duration) => {
     // Listens for a signal on button, wired to pin 535 (GPIO23)
     const button = new Gpio(535, "in");
     pin.writeSync(1);
-    button.watch(error, value);
+    button.watch(value);
     button.writeSync(value);
     console.log(`Dispensed pin ${pinNo} for ${duration}ms successfully`);
   } catch (error) {
