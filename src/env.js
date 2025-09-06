@@ -12,6 +12,8 @@ console.log = (...args) => {
 // Sanity check
 const ENV_VARS = [
   "LIGHTNING_LNBITS_URL",
+  "PIN_IN",
+  "LABEL",
 ];
 let hasAllEnvVars = true;
 for (let i = 0; i < ENV_VARS.length; i++) {

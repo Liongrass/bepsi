@@ -21,9 +21,9 @@ const startLightningListener = async () => {
     const messageStr = data.toString("utf-8"); // Convert buffer to string
     console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
-    pinNo = messageStr.split("-")[0];
+    pinOut = messageStr.split("-")[0];
     duration = messageStr.split("-")[1];
-    dispenseFromPayments(pinNo, duration);
+    dispenseFromPayments(pinOut, duration);
   });
   
  ws.onclose = (event) => {
