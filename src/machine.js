@@ -22,18 +22,23 @@ function dispenseFromPayments(pinOut, duration) {
     const button = new Gpio(pini, "in", "rising", {debounceTimeout: 200});
     buttons[pini] = button;
     // Makes the machine hot, ready to dispense
-    pino.writeSync(0);
+    pino.writeSync(1);
     // Listens for a signal on button, check for the .env file for the pin numbers
     button.watch((error, value) => {
-      sleep(500)
-      tray = pinIn.indexOf(pini)
-      pino.writeSync(1);
-      console.log(`Button press detected at tray ${tray}. Dispensed item ${label[tray]} at pin ${pini} successfully`);
+      stoprelay(pini, pino)
       })
     }
   isDispensing = false;
 };
 
+async function stoprelay (pini, pino) {
+  await sleep(500)
+  tray = pinIn.indexOf(pini)
+  pino.writeSync(0);
+  console.log(`Button press detected at tray ${tray}. Dispensed item ${label[tray]} at pin ${pini} successfully`);
+  }
+
 module.exports = {
   dispenseFromPayments,
 };
+
