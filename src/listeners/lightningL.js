@@ -1,5 +1,6 @@
 const WebSocket = require("ws");
-const { dispenseFromPayments } = require("../machine");
+const { makeMachineHot } = require("../machine");
+const { pinOut } = require("../machine");
 const { LIGHTNING_LNBITS_URL } = require("../env");
 
 // This file connects to an LNbits server over a websocket and listens to incoming messages in the format "pin-ms", e.g. "21-1000". It then triggers the dispenseFromPayments() function in machine.js to dispense the can at the defined pin. When the websocket is interrupted, a reconnection attempt is made every minute.
@@ -21,12 +22,16 @@ const startLightningListener = async () => {
     const messageStr = data.toString("utf-8"); // Convert buffer to string
     console.log("Received message from LNbits server:", messageStr);
     // example: 0-1000
-    pinOut = messageStr.split("-")[0];
-    duration = messageStr.split("-")[1];
-    dispenseFromPayments(pinOut, duration);
+    targetPin = parseInt(messageStr.split("-")[0]);
+    if (pinOut == targetPin) {
+      makeMachineHot(pinOut);
+    } else {
+      console.log(`Cannot dispense on pin ${targetPin}. Expected pin: ${pinOut}`)
+    }
+
   });
   
- ws.onclose = (event) => {
+  ws.onclose = (event) => {
     const reconnectInterval = 60000; // 60000 milliseconds = 1 minute
     console.log("Connection cannot be established. Reconnecting in 1 minute");
     setTimeout(startLightningListener, reconnectInterval);

@@ -13,8 +13,10 @@ console.log = (...args) => {
 const ENV_VARS = [
   "LIGHTNING_LNBITS_URL",
   "PIN_IN",
+  "PIN_OUT",
   "LABEL",
 ];
+
 let hasAllEnvVars = true;
 for (let i = 0; i < ENV_VARS.length; i++) {
   const curVar = ENV_VARS[i];
