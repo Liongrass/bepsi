@@ -31,8 +31,8 @@ npm install --global yarn
 ## Install:
 
 ```bash
-git clone https://github.com/Liongrass/21UP.git
-cd 21UP
+git clone https://github.com/Liongrass/bepsi.git
+cd bepsi
 yarn
 ```
 
@@ -54,7 +54,7 @@ yarn start
 To persist 21UP and make it run on startup:
 
 ```bash
-cd ~/21UP
+cd bepsi
 npm install -g pm2
 pm2 start index.js --name 21UP --exp-backoff-restart-delay=100
 pm2 startup
