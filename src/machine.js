@@ -18,7 +18,7 @@ var timetaken = "Time until button was pressed:";
 
 const startButtonListener = async () => {
 for (let pin of pinIn) {
-    const button = new Gpio(pin, "in", "rising", {debounceTimeout: 200});
+    const button = new Gpio(pin, "in", "falling", {debounceTimeout: 500});
     console.log(`Waiting for button to be pressed. Pin ${pinIn[pinIn.indexOf(pin)]}`);
     // Listens for a signal on button, check for the .env file for the pin numbers
     button.watch((error, value) => {
@@ -36,7 +36,7 @@ for (let pin of pinIn) {
 function makeMachineHot(pinOut) {
   console.time(timetaken);
   const pino = new Gpio(pinOut, "out");
-  pino.writeSync(0);
+  pino.writeSync(1);
   state = 1;
   console.log(`Machine is now ${stateLabel[state]}. Pin ${pinOut}`);
 }
@@ -52,7 +52,7 @@ async function makeMachineCold(pinOut) {
   console.timeEnd(timetaken)
   console.log(`Dispensed ${label[tray]} at pin ${pinOut} successfully`);
   const pino = new Gpio(pinOut, "out");
-  pino.writeSync(1);
+  pino.writeSync(0);
   state = 0;
   console.log(`Machine is now ${stateLabel[state]}.`)
   }
