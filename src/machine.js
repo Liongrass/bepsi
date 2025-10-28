@@ -50,8 +50,8 @@ function checkTrays() {
 // Use the splice function to assemble the array always in the correct order. splice(position, numberOfItemsToRemove, item)
       availableTray.splice(pinIn.indexOf(pin), 1, value);
 //      console.log(`Tray ${pinIn.indexOf(pin)} Value ${value}`)
-//      console.log(`Tray ${pinIn.indexOf(pin)} at ${pin} is ${fullLabel[value]} (${label[pinIn.indexOf(pin)]})`);
-      console.log(`Available trays: ${availableTray}`);
+      console.log(`Tray ${pinIn.indexOf(pin)} at ${pin} is ${fullLabel[value]} (${label[pinIn.indexOf(pin)]})`);
+//      console.log(`Available trays: ${availableTray}`);
       if (error) {
         throw error;
       }
@@ -68,7 +68,7 @@ function makeMachineHot(pinOut) {
   console.time(timetaken);
   const pino = new Gpio(pinOut, "out");
 // On the test relay the pins are inverted, in production they should be 1 to open
-  pino.writeSync(0);
+  pino.writeSync(1);
   state = 1;
   console.log(`Machine is now ${stateLabel[state]}. Pin ${pinOut}`);
 }
@@ -91,7 +91,7 @@ async function makeMachineCold(pinOut) {
     console.log(`Dispensed ${label[tray]} at pin ${pinOut} successfully`);
     const pino = new Gpio(pinOut, "out");
 // On the test relay the pins are inverted, in production they should be 0 to close
-    pino.writeSync(1);
+    pino.writeSync(0);
     state = 0;
     console.log(`Machine is now ${stateLabel[state]}.`)
     checkTrays();
