@@ -2,11 +2,13 @@ const WebSocket = require("ws");
 const { makeMachineHot } = require("../machine");
 const { pinOut } = require("../machine");
 const { LIGHTNING_LNBITS_URL } = require("../env");
+const { WS_RECONNECT } = require("../env");
 
 // This file connects to an LNbits server over a websocket and listens to incoming messages in the format "pin-ms", e.g. "21-1000". It then triggers the dispenseFromPayments() function in machine.js to dispense the can at the defined pin. When the websocket is interrupted, a reconnection attempt is made every minute.
 
 // The WebSocket URL is obtained from LNBits using the Bitcoin Switch extension and defined in the .env file.
 const wsUrl = LIGHTNING_LNBITS_URL;
+const wsInterval = JSON.parse(process.env.WS_RECONNECT)*1000;
 
 const startLightningListener = async () => {
   // Create a new WebSocket connection
@@ -15,6 +17,14 @@ const startLightningListener = async () => {
   // Event listener for when the connection is open
   ws.on("open", function open() {
     console.log("Connected to LNbits " + wsUrl);
+
+    pingInterval = setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.ping();
+        // console.log(`Pinging websocket ${wsUrl} after ${wsInterval}ms`)
+      }
+    }, wsInterval);
+
   });
   
   // Event listener for when a message is received from the server

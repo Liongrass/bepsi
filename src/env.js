@@ -15,6 +15,7 @@ const ENV_VARS = [
   "PIN_IN",
   "PIN_OUT",
   "LABEL",
+  "WS_RECONNECT"
 ];
 
 let hasAllEnvVars = true;
@@ -34,5 +35,5 @@ const {
 } = process.env;
 
 module.exports = {
-  LIGHTNING_LNBITS_URL
+  LIGHTNING_LNBITS_URL,
 };
