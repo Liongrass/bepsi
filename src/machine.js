@@ -22,7 +22,7 @@ var timetaken = "Time until button was pressed:";
 function setupButtons() {
 //  let button = [];
 for (let pin of pinIn) {
-    button[pin] = new Gpio(pin, "in", "falling", {debounceTimeout: 500});
+    button[pin] = new Gpio(pin, "in", "rising", {debounceTimeout: 500});
     console.log(`Waiting for button to be pressed. Pin ${pin}`);
   }
 }
@@ -82,7 +82,10 @@ async function makeMachineCold(pinOut) {
   await sleep(500);
 // Next, the machine will check whether the tray was previously marked unavailable
   if (availableTray[tray] == 1) {
-    console.log(`Item ${label[tray]} at tray ${tray} unavailable`)
+//    console.log(`Item ${label[tray]} at tray ${tray} unavailable`)
+    const pino = new Gpio(pinOut, "out");
+    pino.writeSync(0);
+//    console.log(`Making machine cold anyway`);
     return;
   }
 // Third, the machine will check if it is actually hot, and only close the circuit then
@@ -93,12 +96,15 @@ async function makeMachineCold(pinOut) {
 // On the test relay the pins are inverted, in production they should be 0 to close
     pino.writeSync(0);
     state = 0;
-    console.log(`Machine is now ${stateLabel[state]}.`)
+//    console.log(`Machine is now ${stateLabel[state]}.`)
     checkTrays();
   }
 // If condition 0 & 1 are not met, it will do nothing.
   else {
-  console.log(`Machine is already ${stateLabel[state]}. Doing nothing.`)
+//  console.log(`Machine is already ${stateLabel[state]}. Doing nothing.`)
+  const pino = new Gpio(pinOut, "out");
+  pino.writeSync(0);
+//  console.log(`Making machine cold anyway`);
   }
 }
 
