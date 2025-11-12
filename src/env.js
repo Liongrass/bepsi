@@ -15,6 +15,8 @@ const ENV_VARS = [
   "PIN_IN",
   "PIN_OUT",
   "LABEL",
+  "PRODUCTION",
+  "WS_PING",
   "WS_RECONNECT"
 ];
 
