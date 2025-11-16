@@ -67,6 +67,7 @@ Useful commands:
 ```bash
 pm2 list
 pm2 monit
+pm2 restart 21UP
 ```
 
 To see logs:
