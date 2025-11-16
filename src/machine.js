@@ -2,7 +2,7 @@ const { Gpio } = require("onoff");
 const { sleep, nowTimestamp } = require("./common");
 const { PRODUCTION } = require("./env")
 
-const p = process.env.PRODUCTION;
+const p = Number.parseInt(process.env.PRODUCTION);
 let state = 0;
 const stateLabel = ["cold", "hot"]
 var timetaken = "Time until button was pressed:";
